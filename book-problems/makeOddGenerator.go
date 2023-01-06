@@ -4,10 +4,10 @@ import "fmt"
 
 func oddGenerator() func() int {
 	num := 1
-	return func() (odd int) {
-		odd = num
+	return func() int {
+		odd := num
 		num += 2
-		return
+		return odd
 	}
 }
 func main() {
