@@ -13,4 +13,14 @@
   1. Bidirectional channel : chan T
   2. Send only channel: chan <- T
   3. Receive only channel: <- chan T
+- **Go Runtime Scheduler**:
+  - Its job is to distribute runnable goroutines over multiple worker OS threads that run on one or more processors. Processors are handling multiple threads.
+    Threads are handling multiple goroutines. Processors are hardware depended; the number of processors is set on the number of your CPU cores.
+- **Goroutines vs Threads**:
+  - Goroutines are easily created and destroyed at runtime, but threads have a large setup and teardown costs; it has to request resources from the OS and return it once it's done.
+  - Creating a goroutine does not require much memory, only 2kB of stack space.
+- Go manages goroutines at two levels, local queues and global queues. Local queues are attached to each processor, while the global queue is common.
+- Stealing Work:
+  - Go's runtime scheduler will take goroutines from other processors. If every other processor run queue is empty, it checks for completed IO requests (syscalls, network requests) from the netpoller. 
+    If this netpoller is empty, the processor will try to get goroutines from the global run queue.
 - 
